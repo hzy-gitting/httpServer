@@ -1,15 +1,7 @@
-﻿  http.cpp
+﻿  connectionHandler.cpp
+  ConsoleApplication1.cpp
+  http.cpp
   HTTPRequest.cpp
-C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\http.cpp(140,22): error C2079: “parseCtx”使用未定义的 struct“recvHTTPRequestPacket::ParseContext”
-C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\http.cpp(142,2): error C3861: “initParseContext”: 找不到标识符
-C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\http.cpp(146,10): error C2660: “parseBufToRequestPacket”: 函数不接受 4 个参数
-  C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\http.h(27,5):
-  参见“parseBufToRequestPacket”的声明
-  C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\http.cpp(146,10):
-  尝试匹配参数列表“(char [1024], int, HTTPRequestPacket *, int *)”时
-  
-C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\http.cpp(147,15): error C2065: “PSERROR”: 未声明的标识符
-C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\http.cpp(148,12): error C2065: “PSERROR”: 未声明的标识符
-C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\http.cpp(150,15): error C2065: “PSEND”: 未声明的标识符
-C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\HTTPRequest.cpp(111,30): error C3861: “mallocHTTPHeaderNode”: 找不到标识符
   正在生成代码...
+C:\Users\10546\Desktop\vsproj\ConsoleApplication1\ConsoleApplication1\http.cpp(119,1): warning C4715: “initHTTPResponsePacket”: 不是所有的控件路径都返回值
+  ConsoleApplication1.vcxproj -> C:\Users\10546\Desktop\vsproj\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe

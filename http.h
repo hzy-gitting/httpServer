@@ -24,9 +24,9 @@ struct HTTPResponsePacket {
 	int bodyLength;
 };
 
-int parseBufToRequestPacket(const char* buf, int len, HTTPRequestPacket* request);
-
 int recvHTTPRequestPacket(SOCKET sock, HTTPRequestPacket* request);
+
+HTTPHeader* mallocHTTPHeaderNode();
 
 HTTPHeader* createHTTPHeader(const char* key, const char* value);
 

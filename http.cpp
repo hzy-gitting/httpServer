@@ -2,6 +2,7 @@
 #include<WinSock2.h>
 #include<stdio.h>
 #include"http.h"
+#include"HTTPRequest.h"
 #define E_MALLOC_FAIL (-1)
 
 #define MAX_METHOD_LEN (10)

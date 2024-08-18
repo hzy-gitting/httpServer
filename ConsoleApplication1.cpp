@@ -19,7 +19,7 @@ int main()
 	SOCKET sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (sock == INVALID_SOCKET) {
 		int err = WSAGetLastError();
-		printf("le = %d\n", err);
+		printf("create socket fail,le = %d\n", err);
 		WSACleanup();
 		return -1;
 	}

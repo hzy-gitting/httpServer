@@ -1,25 +1,5 @@
 #include"http.h"
-
-enum {
-	PS_METHOD,
-	PS_URI,
-	PS_VERSION,
-	PS_HEADER_KEY,
-	PS_HEADER_VALUE,
-	PS_BODY
-};
-
-struct ParseContext {
-	int parseState;
-	int methodLen;
-	int uriLen;
-	int versionLen;
-	struct HTTPHeader* currentHeader;
-	int keyLen;
-	int valueLen;
-	int parsingSpace;
-	int bodyLen;
-};
+#include "HTTPRequest.h"
 
 void initParseContext(struct ParseContext* parseContext) {
 	parseContext->parseState = PS_METHOD;
@@ -32,11 +12,6 @@ void initParseContext(struct ParseContext* parseContext) {
 	parseContext->parsingSpace = 1;
 	parseContext->bodyLen = 0;
 }
-
-#define PSCONTINUE (0)
-#define PSERROR (-1)
-#define PSEND (1)
-
 int parseMethodOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
 {
 	if (ch == ' ') {
