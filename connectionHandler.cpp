@@ -33,11 +33,20 @@ unsigned __stdcall threadMain(void* arg) {
 	}
 	
 	processRequest(&request, &response);
-	ret = send(sock, "this is server.", 16, 0);
+	char* buf = (char*)malloc(1024 * 4);
+	if (buf == NULL) {
+		printf("malloc fail\n");
+		return -1;
+	}
+	int len = 0;
+	serializeHTTPResponsePacket(&response, buf, &len);
+
+	ret = send(sock, buf, len, 0);
 	if (ret == SOCKET_ERROR) {
 		printf("send fail\n");
 	}
 	closesocket(sock);
 	destroyHTTPRequestPacket(&request);
+	free(buf);
 	return 1;
 }

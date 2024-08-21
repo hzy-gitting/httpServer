@@ -40,4 +40,6 @@ void destroyHTTPRequestPacket(HTTPRequestPacket* request);
 
 int initHTTPResponsePacket(HTTPResponsePacket* response);
 
+void serializeHTTPResponsePacket(HTTPResponsePacket* response, char* buf, int* len);
+
 void destroyHTTPResponsePacket(HTTPResponsePacket* response);
