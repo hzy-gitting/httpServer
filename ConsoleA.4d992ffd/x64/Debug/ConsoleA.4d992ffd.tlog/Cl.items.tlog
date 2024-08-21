@@ -1,5 +1,5 @@
 D:\proj\httpServer\connectionHandler.cpp;D:\proj\httpServer\ConsoleA.4d992ffd\x64\Debug\connectionHandler.obj
 D:\proj\httpServer\ConsoleApplication1.cpp;D:\proj\httpServer\ConsoleA.4d992ffd\x64\Debug\ConsoleApplication1.obj
-D:\proj\httpServer\http.cpp;D:\proj\httpServer\ConsoleA.4d992ffd\x64\Debug\http.obj
+D:\proj\httpServer\httpHeader.cpp;D:\proj\httpServer\ConsoleA.4d992ffd\x64\Debug\httpHeader.obj
 D:\proj\httpServer\HTTPRequest.cpp;D:\proj\httpServer\ConsoleA.4d992ffd\x64\Debug\HTTPRequest.obj
 D:\proj\httpServer\HTTPResponse.cpp;D:\proj\httpServer\ConsoleA.4d992ffd\x64\Debug\HTTPResponse.obj

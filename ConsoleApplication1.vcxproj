@@ -130,14 +130,15 @@
   <ItemGroup>
     <ClCompile Include="connectionHandler.cpp" />
     <ClCompile Include="ConsoleApplication1.cpp" />
-    <ClCompile Include="http.cpp" />
+    <ClCompile Include="httpHeader.cpp" />
     <ClCompile Include="HTTPRequest.cpp" />
     <ClCompile Include="HTTPResponse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connectionHandler.h" />
-    <ClInclude Include="http.h" />
+    <ClInclude Include="httpHeader.h" />
     <ClInclude Include="HTTPRequest.h" />
+    <ClInclude Include="HTTPResponse.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

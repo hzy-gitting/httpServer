@@ -1,7 +1,45 @@
-#include"http.h"
+#include"httpHeader.h"
 #include "HTTPRequest.h"
+#include<stdio.h>
 
-void initParseContext(struct ParseContext* parseContext) {
+#define MAX_METHOD_LEN (10)
+#define MAX_URI_LEN (1024 * 4)
+#define MAX_VERSION_LEN (10)
+int initHTTPRequestPacket(struct HTTPRequestPacket* request) {
+	request->method = (char*)malloc(MAX_METHOD_LEN);
+	if (!request->method) {
+		return -1;
+	}
+	request->uri = (char*)malloc(MAX_URI_LEN);
+	if (!request->uri) {
+		free(request->method);
+		return -1;
+	}
+	request->version = (char*)malloc(MAX_VERSION_LEN);
+	if (!request->version) {
+		free(request->method);
+		free(request->uri);
+		return -1;
+	}
+	request->headers = NULL;
+	request->body = NULL;
+	request->bodyLength = 0;
+	return 0;
+}
+
+
+void destroyHTTPRequestPacket(struct HTTPRequestPacket* request) {
+	free(request->method);
+	free(request->uri);
+	free(request->version);
+	freeHTTPHeaders(request->headers);
+	if (request->body) {
+		free(request->body);
+	}
+}
+
+
+static void initParseContext(struct ParseContext* parseContext) {
 	parseContext->parseState = PS_METHOD;
 	parseContext->methodLen = 0;
 	parseContext->uriLen = 0;
@@ -12,7 +50,7 @@ void initParseContext(struct ParseContext* parseContext) {
 	parseContext->parsingSpace = 1;
 	parseContext->bodyLen = 0;
 }
-int parseMethodOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
+static int parseMethodOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
 {
 	if (ch == ' ') {
 		request->method[parseCtx->methodLen] = '\0';
@@ -23,7 +61,7 @@ int parseMethodOperation(char ch, struct HTTPRequestPacket* request, struct Pars
 	}
 	return PSCONTINUE;
 }
-int parseURIOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
+static int parseURIOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
 {
 	if (ch == ' ') {
 		request->uri[parseCtx->uriLen] = '\0';
@@ -34,7 +72,7 @@ int parseURIOperation(char ch, struct HTTPRequestPacket* request, struct ParseCo
 	}
 	return PSCONTINUE;
 }
-int parseVersionOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
+static int parseVersionOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
 {
 	if (ch == '\r') {
 		request->version[parseCtx->versionLen] = '\0';
@@ -48,7 +86,7 @@ int parseVersionOperation(char ch, struct HTTPRequestPacket* request, struct Par
 	return PSCONTINUE;
 }
 
-int getContentLength(struct HTTPRequestPacket* request)
+static int getContentLength(struct HTTPRequestPacket* request)
 {
 	struct HTTPHeader* pHeader = request->headers;
 
@@ -64,7 +102,7 @@ int getContentLength(struct HTTPRequestPacket* request)
 	return atoi(pHeader->value);
 }
 
-int parseHeaderKeyOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
+static int parseHeaderKeyOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
 {
 	if (ch == '\r') {
 
@@ -96,7 +134,7 @@ int parseHeaderKeyOperation(char ch, struct HTTPRequestPacket* request, struct P
 	}
 	return PSCONTINUE;
 }
-int parseHeaderValueOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
+static int parseHeaderValueOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
 {
 	if (ch != '\r' && ch != '\n') {
 		if (ch != ' ' || !parseCtx->parsingSpace) {
@@ -116,7 +154,7 @@ int parseHeaderValueOperation(char ch, struct HTTPRequestPacket* request, struct
 	return PSCONTINUE;
 }
 
-int parseBodyOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
+static int parseBodyOperation(char ch, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
 {
 	request->body[parseCtx->bodyLen++] = ch;
 	if (parseCtx->bodyLen == request->bodyLength) {
@@ -126,7 +164,7 @@ int parseBodyOperation(char ch, struct HTTPRequestPacket* request, struct ParseC
 }
 
 
-int (*findParseOperationByState(int state))(char, struct HTTPRequestPacket*, struct ParseContext* parseCtx)
+static int (*findParseOperationByState(int state))(char, struct HTTPRequestPacket*, struct ParseContext* parseCtx)
 {
 	switch (state)
 	{
@@ -147,7 +185,7 @@ int (*findParseOperationByState(int state))(char, struct HTTPRequestPacket*, str
 	return NULL;
 }
 
-int parseBufToRequestPacket(const char* buf, int len, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
+static int parseBufToRequestPacket(const char* buf, int len, struct HTTPRequestPacket* request, struct ParseContext* parseCtx)
 {
 	int ret = PSCONTINUE;
 
@@ -156,4 +194,38 @@ int parseBufToRequestPacket(const char* buf, int len, struct HTTPRequestPacket* 
 	}
 
 	return ret;
+}
+
+
+
+int recvHTTPRequestPacket(SOCKET sock, struct HTTPRequestPacket* request)
+{
+	char buf[1024];
+	int bytesRead = 0;
+	int ret;
+	struct ParseContext parseCtx;
+
+	initParseContext(&parseCtx);
+	do {
+		bytesRead = recv(sock, buf, 1024, 0);
+		if (bytesRead > 0) {
+			ret = parseBufToRequestPacket(buf, bytesRead, request, &parseCtx);
+			if (ret == PSERROR) {
+				return PSERROR;
+			}
+			if (ret == PSEND) {
+				return 0;
+			}
+		}
+		else if (bytesRead == 0) {
+			printf("connection closed when parsing.\n");
+			return -2;
+		}
+		else {
+			printf("recv fail,le=%d\n", WSAGetLastError());
+			return -3;
+		}
+	} while (bytesRead > 0);
+
+	return 0;
 }

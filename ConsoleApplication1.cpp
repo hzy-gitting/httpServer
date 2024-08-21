@@ -1,13 +1,10 @@
 ﻿
 #define  _WINSOCK_DEPRECATED_NO_WARNINGS 
-#include <iostream>
+#include<stdio.h>
 #include<WinSock2.h>
 #include<process.h>
 #include"connectionHandler.h"
-#include"http.h"
 
-#define TEST 0
-#if !TEST
 int main()
 {
 	WSADATA wsaData;
@@ -58,17 +55,3 @@ int main()
 
 	return 0;
 }
-#else
-int main() {
-	const char* httpRequestString = "GET / HTTP/1.1\r\nHost: localhost:27015\r\nConnection: keep-alive\r\nCache-Control: max-age=0\r\nsec-ch-ua: \"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"\r\nContent-Length: 5\r\n\r\nhello";
-	struct HTTPRequestPacket request;
-	int ret = initHTTPRequestPacket(&request);
-	if (ret != 0) {
-		printf("initHTTPRequestPacket fail,ret=%d\n", ret);
-		return -1;
-	}
-	ret = parseBufToRequestPacket(httpRequestString, strlen(httpRequestString),&request);
-
-	return 0;
-}
-#endif

@@ -1,8 +1,9 @@
-#include"http.h"
+
 #include<WinSock2.h>
 #include<stdio.h>
 #include "connectionHandler.h"
-
+#include"HTTPRequest.h"
+#include"HTTPResponse.h"
 
 void processRequest(struct HTTPRequestPacket *request,struct HTTPResponsePacket *response) {
 	addResponseHeader(response, "Server", "CServer");

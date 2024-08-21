@@ -1,5 +1,14 @@
 #pragma once
 
+struct HTTPRequestPacket {
+	char* method;
+	char* uri;
+	char* version;
+	struct HTTPHeader* headers;
+	char* body;
+	int bodyLength;
+};
+
 enum {
 	PS_METHOD,
 	PS_URI,
@@ -8,7 +17,6 @@ enum {
 	PS_HEADER_VALUE,
 	PS_BODY
 };
-
 struct ParseContext {
 	int parseState;
 	int methodLen;
@@ -26,6 +34,8 @@ struct ParseContext {
 #define PSERROR (-1)
 #define PSEND (1)
 
-void initParseContext(ParseContext* parseContext);
+int initHTTPRequestPacket(HTTPRequestPacket* request);
 
-int parseBufToRequestPacket(const char* buf, int len, HTTPRequestPacket* request, ParseContext* parseCtx);
+void destroyHTTPRequestPacket(HTTPRequestPacket* request);
+
+int recvHTTPRequestPacket(SOCKET sock, HTTPRequestPacket* request);

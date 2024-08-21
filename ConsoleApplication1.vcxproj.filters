@@ -18,7 +18,7 @@
     <ClCompile Include="ConsoleApplication1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="http.cpp">
+    <ClCompile Include="httpHeader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="connectionHandler.cpp">
@@ -32,13 +32,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="http.h">
+    <ClInclude Include="httpHeader.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="connectionHandler.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HTTPRequest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HTTPResponse.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
