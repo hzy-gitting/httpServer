@@ -41,12 +41,12 @@ unsigned __stdcall threadMain(void* arg) {
 	}
 	int len = 0;
 	serializeHTTPResponsePacket(&response, buf, &len);
-
 	ret = send(sock, buf, len, 0);
 	if (ret == SOCKET_ERROR) {
 		printf("send fail\n");
 	}
 	closesocket(sock);
+	destroyHTTPResponsePacket(&response);
 	destroyHTTPRequestPacket(&request);
 	free(buf);
 	return 1;

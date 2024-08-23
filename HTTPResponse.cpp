@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "HTTPResponse.h"
 #include"httpHeader.h"
+#include<stdlib.h>
+#include<string.h>
 
 int initHTTPResponsePacket(struct HTTPResponsePacket* response) {
 	response->version = (char*)malloc(10);

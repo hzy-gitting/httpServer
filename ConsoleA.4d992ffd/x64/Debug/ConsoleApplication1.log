@@ -1,2 +1,7 @@
-﻿  ConsoleApplication1.cpp
+﻿  HTTPResponse.cpp
+D:\proj\httpServer\HTTPResponse.cpp(40,16): warning C4267: “+=”: 从“size_t”转换到“int”，可能丢失数据
+D:\proj\httpServer\HTTPResponse.cpp(46,16): warning C4267: “+=”: 从“size_t”转换到“int”，可能丢失数据
+D:\proj\httpServer\HTTPResponse.cpp(52,16): warning C4267: “+=”: 从“size_t”转换到“int”，可能丢失数据
+D:\proj\httpServer\HTTPResponse.cpp(60,17): warning C4267: “+=”: 从“size_t”转换到“int”，可能丢失数据
+D:\proj\httpServer\HTTPResponse.cpp(66,17): warning C4267: “+=”: 从“size_t”转换到“int”，可能丢失数据
   ConsoleApplication1.vcxproj -> D:\proj\httpServer\x64\Debug\ConsoleApplication1.exe

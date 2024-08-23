@@ -1,5 +1,4 @@
 #pragma once
-#include<WinSock2.h>
 struct HTTPHeader {
 	char* key;
 	char* value;

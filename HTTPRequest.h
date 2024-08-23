@@ -1,5 +1,5 @@
 #pragma once
-
+#include<WinSock2.h>
 struct HTTPRequestPacket {
 	char* method;
 	char* uri;
