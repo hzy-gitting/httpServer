@@ -1,7 +1,7 @@
 
 #include<WinSock2.h>
 #include<stdio.h>
-#include "connectionHandler.h"
+#include "httpResponseThreadMain.h"
 #include"HTTPRequest.h"
 #include"HTTPResponse.h"
 
@@ -12,7 +12,7 @@ void processRequest(struct HTTPRequestPacket *request,struct HTTPResponsePacket 
 	memcpy(response->body, "hello!", 6);
 }
 
-unsigned __stdcall threadMain(void* arg) {
+unsigned __stdcall httpResponseThreadMain(void* arg) {
 	int ret;
 	SOCKET sock = (SOCKET)arg;
 	struct HTTPRequestPacket request;

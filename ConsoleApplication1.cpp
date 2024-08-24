@@ -3,7 +3,7 @@
 #include<stdio.h>
 #include<WinSock2.h>
 #include<process.h>
-#include"connectionHandler.h"
+#include"httpResponseThreadMain.h"
 
 int main()
 {
@@ -44,7 +44,7 @@ int main()
 			return -1;
 		}
 		unsigned int threadId;
-		_beginthreadex(NULL, 0, threadMain, (void*)acceptSock, 0, &threadId);
+		_beginthreadex(NULL, 0, httpResponseThreadMain, (void*)acceptSock, 0, &threadId);
 		printf("begin thread tid=%d\n", threadId);
 	}
 	ret = WSACleanup();

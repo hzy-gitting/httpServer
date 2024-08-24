@@ -21,7 +21,7 @@
     <ClCompile Include="httpHeader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="connectionHandler.cpp">
+    <ClCompile Include="httpResponseThreadMain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="HTTPRequest.cpp">
@@ -35,7 +35,7 @@
     <ClInclude Include="httpHeader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="connectionHandler.h">
+    <ClInclude Include="httpResponseThreadMain.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HTTPRequest.h">
