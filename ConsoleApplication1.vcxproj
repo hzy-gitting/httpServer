@@ -129,7 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="httpResponseThreadMain.cpp" />
-    <ClCompile Include="ConsoleApplication1.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="httpHeader.cpp" />
     <ClCompile Include="HTTPRequest.cpp" />
     <ClCompile Include="HTTPResponse.cpp" />
