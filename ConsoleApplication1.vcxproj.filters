@@ -30,6 +30,9 @@
     <ClCompile Include="HTTPResponse.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="processIncomingConnectionThreadMain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="httpHeader.h">
@@ -42,6 +45,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HTTPResponse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="processIncomingConnectionThreadMain.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

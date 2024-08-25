@@ -3,7 +3,7 @@
 #include<stdio.h>
 #include<WinSock2.h>
 #include<process.h>
-#include"httpResponseThreadMain.h"
+#include"processIncomingConnectionThreadMain.h"
 
 int main()
 {
@@ -36,17 +36,10 @@ int main()
 		WSACleanup();
 		return -1;
 	}
-	while (1) {
-		printf("waiting for incoming connection...\n");
-		SOCKET acceptSock = accept(sock, NULL, NULL);
-		if (acceptSock == INVALID_SOCKET) {
-			printf("Accept fail,le=%d\n", WSAGetLastError());
-			return -1;
-		}
-		unsigned int threadId;
-		_beginthreadex(NULL, 0, httpResponseThreadMain, (void*)acceptSock, 0, &threadId);
-		printf("begin thread tid=%d\n", threadId);
-	}
+	unsigned int threadId;
+	_beginthreadex(NULL, 0, processIncomingConnectionThreadMain, (void*)sock, 0, &threadId);
+	printf("begin processIncomingConnection thread tid=%d\n", threadId);
+	SuspendThread(GetCurrentThread());
 	ret = WSACleanup();
 	if (ret != 0) {
 		printf("WSACleanup fail,le = %d\n", WSAGetLastError());

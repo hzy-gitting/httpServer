@@ -133,12 +133,15 @@
     <ClCompile Include="httpHeader.cpp" />
     <ClCompile Include="HTTPRequest.cpp" />
     <ClCompile Include="HTTPResponse.cpp" />
+    <ClCompile Include="processIncomingConnectionThreadMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="httpResponseThreadMain.h" />
     <ClInclude Include="httpHeader.h" />
     <ClInclude Include="HTTPRequest.h" />
     <ClInclude Include="HTTPResponse.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="processIncomingConnectionThreadMain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
