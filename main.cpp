@@ -17,8 +17,7 @@ int main()
 	if (sock == INVALID_SOCKET) {
 		int err = WSAGetLastError();
 		printf("create socket fail,le = %d\n", err);
-		WSACleanup();
-		return -1;
+		goto error;
 	}
 	sockaddr_in service;
 	service.sin_family = AF_INET;
@@ -27,19 +26,18 @@ int main()
 	ret = bind(sock, (sockaddr*)&service, sizeof(service));
 	if (ret == SOCKET_ERROR) {
 		printf("bind fail ,le = %d\n", WSAGetLastError());
-		WSACleanup();
-		return -1;
+		goto error;
 	}
 	ret = listen(sock, SOMAXCONN);
 	if (ret == SOCKET_ERROR) {
 		printf("listen fail,le=%d\n", WSAGetLastError());
-		WSACleanup();
-		return -1;
+		goto error;
 	}
 	unsigned int threadId;
 	_beginthreadex(NULL, 0, processIncomingConnectionThreadMain, (void*)sock, 0, &threadId);
 	printf("begin processIncomingConnection thread tid=%d\n", threadId);
 	SuspendThread(GetCurrentThread());
+error:
 	ret = WSACleanup();
 	if (ret != 0) {
 		printf("WSACleanup fail,le = %d\n", WSAGetLastError());

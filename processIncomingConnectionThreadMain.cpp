@@ -3,7 +3,6 @@
 #include<stdio.h>
 #include<process.h>
 #include "httpResponseThreadMain.h"
-#include "processIncomingConnectionThreadMain.h"
 
 unsigned __stdcall processIncomingConnectionThreadMain(void* arg)
 {
